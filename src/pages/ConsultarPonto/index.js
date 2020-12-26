@@ -21,35 +21,37 @@ function TeacherList() {
     appId: "1:245527331524:web:fe732dc18cda914c00bf91"
   };
 
-  // Initialize Firebase
   !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
-  // firebase.initializeApp(firebaseConfig);
 
   const [matricula, setMatricula] = useState('')
   const [meusPontos, setMeusPontos] = useState([])
   const [isFiltersVisible, setIsFiltersVisible] = useState(false);
 
 
-  async function handleFiltersSubmit() {
-    await firebase.database().ref(`ponto/${matricula}`).on("value", (response) => {
-      const pontos = []
-      response.forEach((item) => {
-        
-        const ponto = {
-          key: item.key,
-          dia: item.val().data,
-          timeInicio: item.val().timeInicio,
-          timeFim: item.val().timeFim,
-          valorHora: item.val().valorHora
-        }
-        pontos.push(ponto)
+  async function handleProcurarMatricula() {
+
+    if (matricula.length >= 1) {
+      await firebase.database().ref(`ponto/${matricula}`).on("value", (response) => {
+        const pontos = []
+        response.forEach((item) => {
+          const ponto = {
+            key: item.key,
+            dia: item.val().data,
+            timeInicio: item.val().timeInicio,
+            timeFim: item.val().timeFim,
+            valorHora: item.val().valorHora,
+            descricao: item.val().descricao
+          }
+          pontos.push(ponto)
+        })
+        setMeusPontos(pontos)
+        setIsFiltersVisible(false);
+
       })
-      setMeusPontos(pontos)
-      setIsFiltersVisible(false);
-
-    })
-
-    // alert(meusPontos[0].dia)
+    } else {
+      alert("Campos MATRICULA vazio!!!")
+      setMeusPontos([]);
+    }
   }
 
   function handleToggleFiltersVisible() {
@@ -66,7 +68,6 @@ function TeacherList() {
 
         {isFiltersVisible && (
           <View style={styles.searchForm}>
-            {/* <Text > Registrar Ponto </Text> */}
             <View style={styles.searchForm} >
               <Text style={styles.label} > Matricula </Text>
               <TextInput value={matricula}
@@ -75,28 +76,13 @@ function TeacherList() {
                 placeholderTextColor="#c1dbcc"
                 placeholder="Qual matricula" />
             </View>
-            <RectButton onPress={handleFiltersSubmit}
+            <RectButton onPress={handleProcurarMatricula}
               style={styles.submitButton} >
               <Text style={styles.submitButtonText} > Buscar </Text>
             </RectButton >
           </View>
         )}
       </PageHeader>
-      {/* <Text > Registrar Ponto </Text>
-      <View style={styles.searchForm} >
-        <Text style={styles.label} > Matricula </Text>
-        <TextInput value={matricula}
-          onChangeText={text => setMatricula(text)}
-          style={styles.input}
-          placeholderTextColor="#c1dbcc"
-          placeholder="Qual matricula" />
-      </View>
-      <RectButton onPress={handleFiltersSubmit}
-        style={styles.submitButton} > */}
-      { /* <Feather name='search' size={20} color='#FFF' style={{marginRight: 10}}/> */}
-      {/* <Text style={styles.submitButtonText} > Buscar </Text>
-      </RectButton > */}
-
       <ScrollView
         style={styles.teacherList}
         contentContainerStyle={{
