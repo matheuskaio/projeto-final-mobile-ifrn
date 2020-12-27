@@ -4,7 +4,7 @@ import { BorderlessButton, RectButton } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons'
 import * as firebase from 'firebase';
 import PageHeader from '../../components/Header';
-import ListaPonto from '../../components/ListaPonto';
+import ItemListaPonto from '../../components/ItemListaPonto';
 
 
 import styles from './styles';
@@ -88,11 +88,10 @@ function TeacherList() {
         contentContainerStyle={{
           paddingHorizontal: 16,
           paddingBottom: 16
-        }}
-      >
+        }}>
         {meusPontos.map(ponto => {
           return (
-            <ListaPonto
+            <ItemListaPonto
               key={ponto.key}
               ponto={ponto}
             />)

@@ -4,7 +4,7 @@ import { View, Text, } from 'react-native'
 
 import styles from './styles'
 
-export default function ListaPonto({ ponto }) {
+export default function ItemListaPonto({ ponto }) {
 
   return (
     <View style={styles.container}>

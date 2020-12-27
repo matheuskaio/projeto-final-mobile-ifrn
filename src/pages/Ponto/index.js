@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Alert, TextInput, Text } from 'react-native'
+import { View, Alert, TextInput, Text, ScrollView } from 'react-native'
 import { BorderlessButton, RectButton, } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons'
 import * as Location from 'expo-location'
@@ -64,9 +64,10 @@ export default function Home() {
     }
 
     async function cadastrar() {
-        if (matricula.length !== 0 && timeInicio.length !== 0 && timeFim.length !== 0 && valorHora.length !==0) {
+        if (matricula.length !== 0 && timeInicio.length !== 0 && timeFim.length !== 0 && valorHora.length !== 0) {
             let ponto = firebase.database().ref(`ponto/`).child(matricula)
             let chave = (await ponto.push()).key
+
             ponto.child(chave).set({
                 data: dataAtualFormatada(),
                 descricao: descricao,
@@ -76,8 +77,9 @@ export default function Home() {
                 timeFim: timeFim,
                 valorHora: valorHora
             })
+
             limparCampos()
-        }else{
+        } else {
             alert("Os campos com * são obrigatórios")
         }
     }
@@ -101,83 +103,87 @@ export default function Home() {
         setValorHora("")
         setDescricao("")
     }
+
     function handleToggleFiltersVisible() {
         setIsFiltersVisible(!isFiltersVisible);
+        limparCampos()
     }
 
     return (
-        <View style={styles.container}>
-            <PageHeader title='Cadastrar meu ponto' headerRight={(
-                <BorderlessButton onPress={handleToggleFiltersVisible}>
-                    <Feather name='plus-square' size={20} color='#FFF' />
-                </BorderlessButton>
-            )}>
+        <ScrollView>
+            < View style={styles.container} >
+                <PageHeader title='Cadastrar meu ponto' headerRight={(
+                    <BorderlessButton onPress={handleToggleFiltersVisible}>
+                        <Feather name='plus-square' size={20} color='#FFF' />
+                    </BorderlessButton>
+                )}>
 
-                {isFiltersVisible && (
-                    <View style={styles.searchForm}>
-                        <View style={styles.searchForm} >
-                            <Text style={styles.label} > Matricula* </Text>
-                            <TextInput value={matricula}
-                                onChangeText={text => setMatricula(text)}
-                                style={styles.input}
-                                placeholderTextColor="#c1dbcc"
-                                placeholder="Qual matricula" />
+                    {isFiltersVisible && (
+                        <View style={styles.searchForm}>
+                            <View style={styles.searchForm} >
+                                <Text style={styles.label} > Matricula* </Text>
+                                <TextInput value={matricula}
+                                    onChangeText={text => setMatricula(text)}
+                                    style={styles.input}
+                                    placeholderTextColor="#c1dbcc"
+                                    placeholder="Qual matricula" />
 
-                            <View style={styles.inputGroup} >
+                                <View style={styles.inputGroup} >
 
-                                <View style={styles.inputBlock} >
-                                    <Text style={styles.label} > Início Jornada* </Text>
-                                    <TextInput style={styles.input}
-                                        value={timeInicio}
-                                        onChangeText={text => setTimeInicio(text)}
-                                        placeholderTextColor='#c1dbcc'
-                                        placeholder='Que hora começou ?'
-                                        maxlength={2}
-                                    />
-                                </View>
+                                    <View style={styles.inputBlock} >
+                                        <Text style={styles.label} > Início Jornada* </Text>
+                                        <TextInput style={styles.input}
+                                            value={timeInicio}
+                                            onChangeText={text => setTimeInicio(text)}
+                                            placeholderTextColor='#c1dbcc'
+                                            placeholder='Que hora começou ?'
+                                            keyboardType="numeric"
+                                            maxlength={2}
+                                        />
+                                    </View>
 
-                                <View style={styles.inputBlock} >
-                                    <Text style={styles.label} > Fim Jornada*</Text>
-                                    <TextInput style={styles.input}
-                                        value={timeFim}
-                                        onChangeText={text => setTimeFim(text)}
-                                        placeholderTextColor='#c1dbcc'
-                                        placeholder='Que hora terminou ?'
-                                        keyboardType="numeric"
-                                        maxLength={2}
-                                    />
-                                </View>
-                            </View >
-                            <View style={styles.inputGroup} >
+                                    <View style={styles.inputBlock} >
+                                        <Text style={styles.label} > Fim Jornada*</Text>
+                                        <TextInput style={styles.input}
+                                            value={timeFim}
+                                            onChangeText={text => setTimeFim(text)}
+                                            placeholderTextColor='#c1dbcc'
+                                            placeholder='Que hora terminou ?'
+                                            keyboardType="numeric"
+                                            maxLength={2}
+                                        />
+                                    </View>
+                                    <View style={styles.inputBlock} >
+                                        <Text style={styles.label} > R$/Hora* </Text>
+                                        <TextInput style={styles.input}
+                                            value={valorHora}
+                                            onChangeText={text => setValorHora(text)}
+                                            placeholderTextColor='#c1dbcc'
+                                            placeholder='Valor da hora ?'
+                                            keyboardType="numeric"
+                                            maxLength={2}
+                                        />
+                                    </View>
+                                </View >
+                                <Text style={styles.label} > Descricao </Text>
+                                <TextInput
+                                    value={descricao}
+                                    onChangeText={text => setDescricao(text)}
+                                    style={styles.inputTextArea}
+                                    placeholderTextColor="#c1dbcc"
+                                    placeholder="Descrição" />
+                            </View>
 
-                                <View style={styles.inputBlock} >
-                                    <Text style={styles.label} > R$/Hora* </Text>
-                                    <TextInput style={styles.input}
-                                        value={valorHora}
-                                        onChangeText={text => setValorHora(text)}
-                                        placeholderTextColor='#c1dbcc'
-                                        placeholder='Valor da hora ?'
-                                        maxlength={2}
-                                    />
-                                </View>
-                            </View >
-                            <Text style={styles.label} > Descricao </Text>
-                            <TextInput value={descricao}
-                                onChangeText={text => setDescricao(text)}
-                                style={styles.input}
-                                placeholderTextColor="#c1dbcc"
-                                placeholder="Descrição" />
+                            <RectButton onPress={handleFiltersSubmit}
+                                style={styles.submitButton} >
+                                <Feather name='check' size={20} color='#FFF' style={{ marginRight: 10 }} />
+                                <Text style={styles.submitButtonText} > Registrar </Text>
+                            </RectButton >
                         </View>
+                    )}
 
-                        <RectButton onPress={handleFiltersSubmit}
-                            style={styles.submitButton} >
-                            { /* <Feather name='search' size={20} color='#FFF' style={{marginRight: 10}}/> */}
-                            <Text style={styles.submitButtonText} > Registrar </Text>
-                        </RectButton >
-                    </View>
-                )}
-
-            </PageHeader>
-        </View>
+                </PageHeader>
+            </View >
+        </ScrollView>
     )
 }

@@ -25,10 +25,21 @@ const styles = StyleSheet.create({
     },
 
     inputBlock: {
-        width: '48%'
+        // width: '48%'
+        width: '30%'
     },
 
     input: {
+        height: 54,
+        backgroundColor: '#FFF',
+        borderRadius: 8,
+        justifyContent: 'center',
+        paddingHorizontal: 16,
+        marginTop: 4,
+        marginBottom: 16
+    },
+
+    inputTextArea: {
         height: 54,
         backgroundColor: '#FFF',
         borderRadius: 8,

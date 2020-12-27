@@ -1,5 +1,5 @@
 Arguments: 
-  /home/matheus/.nvm/versions/node/v12.16.1/bin/node /usr/share/yarn/bin/yarn.js add react-native-shapes
+  /home/matheus/.nvm/versions/node/v12.16.1/bin/node /usr/share/yarn/bin/yarn.js add react-native-picker-select
 
 PATH: 
   /home/matheus/.zinit/polaris/sbin:/home/matheus/.zinit/polaris/bin:/home/matheus/.nvm/versions/node/v12.16.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/matheus/Android/Sdk/emulator:/home/matheus/Android/Sdk/tools:/home/matheus/Android/Sdk/tools/bin:/home/matheus/Android/Sdk/platform-tools:/home/matheus/.yarn/bin:/snap/bin:/home/matheus/Android/Sdk/emulator:/home/matheus/Android/Sdk/tools:/home/matheus/Android/Sdk/tools/bin:/home/matheus/Android/Sdk/platform-tools:/home/matheus/.yarn/bin:/snap/bin
@@ -35,6 +35,7 @@ npm manifest:
       "@react-navigation/native": "^5.8.10",
       "@react-navigation/stack": "^5.12.8",
       "expo": "^40.0.0",
+      "expo-camera": "~9.1.0",
       "expo-font": "~8.4.0",
       "expo-location": "~10.0.0",
       "expo-status-bar": "~1.0.3",
@@ -46,6 +47,7 @@ npm manifest:
       "react-native-reanimated": "~1.13.0",
       "react-native-safe-area-context": "3.1.9",
       "react-native-screens": "~2.15.0",
+      "react-native-shapes": "^0.1.0",
       "react-native-web": "~0.13.12"
     },
     "devDependencies": {
@@ -1508,6 +1510,13 @@ Lockfile:
       "@types/yargs" "^15.0.0"
       chalk "^4.0.0"
   
+  "@koale/useworker@^3.2.1":
+    version "3.2.1"
+    resolved "https://registry.yarnpkg.com/@koale/useworker/-/useworker-3.2.1.tgz#3d45593887e1df7ae8b469f1512fbaff85e4db2f"
+    integrity sha512-oTATxVRYceI0ZrlcAYGwhXU5l+rHd14yFlAyQfgbwi+vfFnnMX9EwU85RlGHIKf0BT4rrIIJm73L9lgz/+/EnA==
+    dependencies:
+      dequal "^1.0.0"
+  
   "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/@protobufjs/aspromise/-/aspromise-1.1.2.tgz#9b8b0cc663d669a7d8f6f5d0893a14d348f30fbf"
@@ -2781,6 +2790,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
     integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
   
+  dequal@^1.0.0:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/dequal/-/dequal-1.0.1.tgz#dbbf9795ec626e9da8bd68782f4add1d23700d8b"
+    integrity sha512-Fx8jxibzkJX2aJgyfSdLhr9tlRoTnHKrRJuu2XHlAgKioN2j19/Bcbe0d4mFXYZ3+wpE2KVobUVTfDutcD17xQ==
+  
   destroy@~1.0.4:
     version "1.0.4"
     resolved "https://registry.yarnpkg.com/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
@@ -2951,6 +2965,15 @@ Lockfile:
       md5-file "^3.2.3"
       path-browserify "^1.0.0"
       url-parse "^1.4.4"
+  
+  expo-camera@~9.1.0:
+    version "9.1.1"
+    resolved "https://registry.yarnpkg.com/expo-camera/-/expo-camera-9.1.1.tgz#8630012524b112bf7667ae7a85bbbca5a0911a24"
+    integrity sha512-PWxUS/lTETt8fz03dLGwTLQ3l16irKNjOMfBKJ9KNBlKaPdQv12S6gBK/VE4pHi4vHSf7kL1f8FTI8JUu8Kq7Q==
+    dependencies:
+      "@koale/useworker" "^3.2.1"
+      invariant "2.2.4"
+      lodash "^4.6.0"
   
   expo-constants@~9.3.3:
     version "9.3.5"
@@ -3653,7 +3676,7 @@ Lockfile:
       strip-ansi "^4.0.0"
       through "^2.3.6"
   
-  invariant@^2.2.2, invariant@^2.2.4:
+  invariant@2.2.4, invariant@^2.2.2, invariant@^2.2.4:
     version "2.2.4"
     resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
     integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -5389,6 +5412,11 @@ Lockfile:
     version "2.15.0"
     resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.15.0.tgz#9b97c1881c4fcdf304bf363f0013225901625f44"
     integrity sha512-qTSQPy0WKHtlb8xt5gY0Gt6sdvfQUQAnFSqgsggW9UEvySbkHzpqOrOYNA79Ca8oXO0dCFwp6X8buIiDefa7+Q==
+  
+  react-native-shapes@^0.1.0:
+    version "0.1.0"
+    resolved "https://registry.yarnpkg.com/react-native-shapes/-/react-native-shapes-0.1.0.tgz#53a9a01ba15ff33d35d0062c25ede48382033b30"
+    integrity sha512-5EHcc/Burlvp2UdfzT+EkQqGn7WO6SQGxZ9w0/4BWYMB/bShA8/lnhuWgxQz+IxZwxnzPkYiR4zCS2NlQQJGig==
   
   react-native-web@~0.13.12:
     version "0.13.18"
