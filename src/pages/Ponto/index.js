@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { View, Alert, TextInput, Text, ScrollView } from 'react-native'
 import { BorderlessButton, RectButton, } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons'
 import * as Location from 'expo-location'
 import * as firebase from 'firebase';
 import PageHeader from '../../components/Header';
-
+import firebaseConfig from '../../util/Firebase'
 
 import styles from './styles';
 
 
-export default function Home() {
+export default function Ponto() {
 
-    var firebaseConfig = {
-        apiKey: "AIzaSyCyBAGPjn2FwyXQ9WujYZmK-qIP3ULtSlo",
-        authDomain: "projeto-final-c8a5c.firebaseapp.com",
-        databaseURL: "https://projeto-final-c8a5c-default-rtdb.firebaseio.com",
-        projectId: "projeto-final-c8a5c",
-        storageBucket: "projeto-final-c8a5c.appspot.com",
-        messagingSenderId: "245527331524",
-        appId: "1:245527331524:web:fe732dc18cda914c00bf91"
-    };
+    // var firebaseConfig = {
+    //     apiKey: "AIzaSyCyBAGPjn2FwyXQ9WujYZmK-qIP3ULtSlo",
+    //     authDomain: "projeto-final-c8a5c.firebaseapp.com",
+    //     databaseURL: "https://projeto-final-c8a5c-default-rtdb.firebaseio.com",
+    //     projectId: "projeto-final-c8a5c",
+    //     storageBucket: "projeto-final-c8a5c.appspot.com",
+    //     messagingSenderId: "245527331524",
+    //     appId: "1:245527331524:web:fe732dc18cda914c00bf91"
+    // };
 
     // Initialize Firebase
     !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
@@ -65,6 +65,7 @@ export default function Home() {
 
     async function cadastrar() {
         if (matricula.length !== 0 && timeInicio.length !== 0 && timeFim.length !== 0 && valorHora.length !== 0) {
+
             let ponto = firebase.database().ref(`ponto/`).child(matricula)
             let chave = (await ponto.push()).key
 
